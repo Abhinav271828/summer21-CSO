@@ -1,6 +1,8 @@
 # Computer Systems Organisation (CS2.201)
 ## Summer 2021, IIIT Hyderabad
-## 24 May, Monday (Lecture 1) - Introduction to Computer Systems
+## 24 May, Monday (Lecture 1) – Introduction to Computer Systems
+
+Taught by Prof. Avinash Sharma
 
 ## Goal
 To study the anatomy of a typical computer system.
