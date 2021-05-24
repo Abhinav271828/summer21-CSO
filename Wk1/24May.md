@@ -14,9 +14,9 @@ To study the anatomy of a typical computer system.
 * Virtual Memory
 
 ## Major Functional Units of a Computer
-`Memory <-> I/O <-> ALU + Processor + Control`
-![The von Neumann Model](vonNeumann.png)
-![Typical Hardware Organisation](hardwareOrg.png)
+`Memory <-> I/O <-> ALU + Processor + Control`  
+![The von Neumann Model](vonNeumann.png)  
+![Typical Hardware Organisation](hardwareOrg.png)  
 
 ## Program Execution on a Computer System
 ```
@@ -30,11 +30,11 @@ int main ()
 The program is stored using the ASCII equivalents of each character.  
 
 Compilation: `gcc -o hello hello.c`  
-![Compilation](compilation.png)
+![Compilation](compilation.png)  
 
 Running:  
-`> ./hello`
-`hello, world`
+`> ./hello`  
+`hello, world`  
 
 ## Programming Abstractions
 HLLs are more abstracted than assembly language, which is in turn more abstracted than machine code.  
