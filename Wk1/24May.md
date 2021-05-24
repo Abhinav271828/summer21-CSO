@@ -17,7 +17,9 @@ To study the anatomy of a typical computer system.
 
 ## Major Functional Units of a Computer
 `Memory <-> I/O <-> ALU + Processor + Control`  
-![The von Neumann Model](vonNeumann.png)  
+
+![The von Neumann Model](vonNeumann.png "The von Neumann Model")  
+
 ![Typical Hardware Organisation](hardwareOrg.png)  
 
 ## Program Execution on a Computer System
@@ -32,6 +34,7 @@ int main ()
 The program is stored using the ASCII equivalents of each character.  
 
 Compilation: `gcc -o hello hello.c`  
+
 ![Compilation](compilation.png)  
 
 Running:  
@@ -43,5 +46,6 @@ HLLs are more abstracted than assembly language, which is in turn more abstracte
 More abstraction makes it easier to program, but we may lose fine-grained control over hardware.  
 
 ## Instruction Set Architecture (ISA)
-The iSA is an sbstraction for the software/hardware interface. There can be multiple implementations of the same ISA, which is advantageous because then a program can run on all machines having a common ISA.  
+The ISA is an abstraction for the software/hardware interface. There can be multiple implementations of the same ISA, which is advantageous because then a program can run on all machines having a common ISA.  
+
 ![ISA abstraction](ISA.png)
