@@ -19,6 +19,6 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     - Program Execution on a Computer System
     - Programming Abstractions
     - Instruction Set Architecture
-* Lecture 2 (26 May, Tuesday) – Integer Representation
+* Lecture 2 (26 May, Wednesday) – Integer Representation
     - Instruction Set Architecture (contd.)
     - Data Representation
