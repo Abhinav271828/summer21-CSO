@@ -1,6 +1,6 @@
 # Computer Systems Organisation (CS2.201)
 ## Summer 2021, IIIT Hyderabad
-## 26 May, Monday (Lecture 2) – Integer Representation
+## 26 May, Wednesday (Lecture 2) – Integer Representation
 
 Taught by Prof. Avinash Sharma
 
@@ -18,5 +18,9 @@ If we implement complex instructions in the hardware, it results in a lot of red
 
 ## Data Representation
 All data is represented as bits (0s and 1s).  
+
 In order to store and retrieve data, we need an address space. This space is determined by the length of the address (typically 32 or 64 bits). This is the same as the nominal size of pointer data, and is called the word size.  
-Note that the _virtual_ address space would consist of all possible words of the given word size. But the processor may not have an address with each such index; it is only the set of all possible addresses given the word size. For example, if the word size is 64, the virtual address space contains $2^{64}$ addresses, while the processor may not in fact have that much memory. There is a mapping between this virtual address space and the physical address space.
+
+Note that the _virtual_ address space (not to be confused with the virtual memory of a program) would consist of all possible words of the given word size. But the processor may not have an address with each such index; it is only the set of all possible addresses given the word size. For example, if the word size is 64, the virtual address space contains $2^{64}$ addresses, while the processor may not in fact have that much memory. There is a mapping between this virtual address space and the physical address space.
+
+![Sizes of Datatypes in C](sizes.png)
