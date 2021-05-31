@@ -26,3 +26,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     - Storage Format
     - Boolean Algebra and Shift Operations
     - Unsigned and Signed Integers
+* Lecture 4 (31 May, Monday) – Integer Representation (contd.)
+    - Integer Addition
+    - Negation (Signed Integers)
+    - Integer Multiplication
+    - 1's Complement Representation
