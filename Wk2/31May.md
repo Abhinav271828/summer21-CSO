@@ -5,7 +5,7 @@
 Taught by Prof. Avinash Sharma
 
 ## Integer Addition
-The sum of two $w$-bit numbers, may not fit in $w$ bits; it can take up to $w+1$. This leads to overflow. The extra bits on the left are truncated.
+The sum of two $w$-bit numbers may not fit in $w$ bits; it can take up to $w+1$. This leads to overflow. The extra bits on the left are truncated.
 
 ![Unsigned Overflow](uoverflow.png)
 
