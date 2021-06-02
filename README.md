@@ -4,7 +4,7 @@
 A collection of notes and resources for the Computer Systems Organisation (CSO) course at IIIT Hyderabad.
 
 ## Course Outline
-- [ ] Computer Arithmetic
+- [x] Computer Arithmetic
 - [ ] Instruction Set Architecture
 - [ ] Processor Architecture and Design
 - [ ] Memory Hierarchies
@@ -31,3 +31,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     - Negation (Signed Integers)
     - Integer Multiplication
     - 1's Complement Representation
+* Lecture 5 (02 June, Wednesday) – Instruction Set Architecture/Assembly Language Programming
+    - Instruction Set Architecture
+    - Assembly Code
+    - Instruction Format
