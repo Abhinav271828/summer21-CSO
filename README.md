@@ -35,3 +35,9 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     - Instruction Set Architecture
     - Assembly Code
     - Instruction Format
+* Lecture 6 (04 June, Friday) – Instruction Set Architecture/Assembly Language Programming
+    - Instruction Format (contd.)
+    - Assembly Code Examples
+    - Processor State
+    - Data Formats
+    - Accessing Information: Registers
