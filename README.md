@@ -43,3 +43,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Processor State
         - Data Formats
         - Accessing Information: Registers
+        - Operand Specifiers
+* Week 3
+    * Lecture 7 (07 June, Monday) – Assembly Language Programming
+        - Data Movement Instructions
+    
