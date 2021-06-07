@@ -54,6 +54,8 @@ In x86-64, there are 8 more registers, and all the registers have 64 bits.
 
 ![Registers in x86-64](registers64.png)  
 
+
+## Operand Specifiers
 Most instructions have one or more operands (source and destination).  
 There are three types of arguments: constant, register and memory. Values can be absolute, scaled or indexed.
 
