@@ -1,27 +1,30 @@
 # Computer Systems Organisation (CS2.201)
 ## Summer 2021, IIIT Hyderabad
-## 07 June, Monday (Lecture 7) – Assembly Language Programming
+## 07 June, Monday (Lecture 7) – Data Movement Instructions
 
 Taught by Prof. Avinash Sharma
 
-## Data Movement Instructions
+
+## Single-Suffix Instructions
 They are generally used to copy data from one location to another, but cannot be used to move between two memory locations. A register must be involved.  
 Further, an immediate value cannot be the second operand.  
 
 ![Data Movement Instructions](movmt.png)
 
-The character suffixes on `mov` indicates the:
+## Three-suffix Instructions
+The character suffixes on `mov` indicate the:
 
-* extension method: `z` for zero-extended and `s` for sign extended
+* extension method: `z` for zero-extended and `s` for sign-extended
 * source data size: `b` for byte, `w` for word and `l` for double word
 * destination location size: as for source.  
 
 ![Three-suffix Opcodes](3suf.png)
 
-When the latter two are identical, we only specify one and leave out the extension method.  
+When the latter two are identical, we only specify one and leave out the extension method, as in Figure 1.  
 
-In x86-64, for sign extension we have `movsbq`, `movswq` and `movslq` analogously. In the case of zero-extension, however, we only need `movzbq` and `movzwq`, since copying from 4 to 8 bytes automatically extends it with zeroes.  
+In x86-64, for sign-extension we have `movsbq`, `movswq` and `movslq` analogously. In the case of zero-extension, however, we only need `movzbq` and `movzwq`, since copying from 4 to 8 bytes automatically extends it with zeroes.  
 
+## Stack Operations
 The `push` instruction takes an argument `S` and is equivalent to
     
     R[%esp] <- R[%esp] - 4
@@ -34,6 +37,7 @@ The `pop` instruction, similarly, takes an argument `D` and is equivalent to
     D <- M[R[%esp]]
     R[%esp] <- R[%esp] + 4
 
+## Example
 Consider the C code:
     
     int exchange (int *xp, int y)
