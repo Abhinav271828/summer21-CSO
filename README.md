@@ -45,12 +45,12 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Accessing Information: Registers
         - Operand Specifiers
 * Week 3
-    * Lecture 7 (07 June, Monday) – Data Movement Instructions
+    * Lecture 7 (07 June, Monday) – Data Movement Instructions [3.4]
         - Single-Suffix Instructions
         - Three-Suffix Instructions
         - Stack Operations
         - Example
-    * Lecture 8 (09 June, Wednesday) – Arithmetic and Logical Instructions
+    * Lecture 8 (09 June, Wednesday) – Arithmetic and Logical Instructions [3.5]
         - The `leal` Instruction
         - Unary and Binary Operations
         - Shift Operations
