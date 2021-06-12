@@ -56,4 +56,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Shift Operations
         - Example
         - Special Arithmetic Operations
-    
+    * Lecture 9 (11 June, Friday) – Condition Codes [3.6] 
+        - Condition Codes
+        - Conditional Instructions
+        - Use Cases
