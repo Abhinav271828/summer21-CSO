@@ -60,3 +60,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Condition Codes
         - Conditional Instructions
         - Use Cases
+* Week 4
+    * Lecture 10 (14 June, Monday) – Conditional Branching
+        - Jump Instructions
+        - Branches
