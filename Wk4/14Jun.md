@@ -35,7 +35,7 @@ After linking, the absolute addresses are given.
     80483a9: 7f f3            jg 804839e
     80483ab: 89 d0            mov %edx, %eax
 
-## Branches
+## If-Then-Else
 Consider the C code
 
     int absdiff (int x, int y)
