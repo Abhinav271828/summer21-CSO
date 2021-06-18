@@ -63,4 +63,11 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 * Week 4
     * Lecture 10 (14 June, Monday) – Conditional Branching
         - Jump Instructions
-        - Branches
+        - If-Then-Else
+    * Lecture 11 (18 June, Friday) – Conditional Branching 2
+        - Pipelining
+        - Loops
+            - Do-While
+            - While
+            - For
+        - Switch-Case
