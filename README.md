@@ -71,3 +71,9 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - While
             - For
         - Switch-Case
+* Week 5
+    * Lecture 12 (21 June, Monday) – Procedures
+        - Procedures
+            - Stack Frames
+            - Transferring Control
+            - Register Usage Conventions
