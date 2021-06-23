@@ -77,3 +77,11 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Stack Frames
             - Transferring Control
             - Register Usage Conventions
+    * Lecture 13 (23 June, Wednesday) – Processor Architecture and Design
+        - Procedures (contd.)
+            - Recursion
+        - CISC vs RISC
+        - Y86 ISA
+            - Program State
+            - Instruction Format
+            - Y86 Programs
