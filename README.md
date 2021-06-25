@@ -5,7 +5,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 
 ## Course Outline
 - [x] Computer Arithmetic
-- [ ] Instruction Set Architecture
+- [x] Instruction Set Architecture
 - [ ] Processor Architecture and Design
 - [ ] Memory Hierarchies
 - [ ] Input/Output
@@ -85,3 +85,13 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Program State
             - Instruction Format
             - Y86 Programs
+    * Lecture 14 (25 June, Friday) – Y86 Implementation
+        - Sequential Y86 Implementations
+        - Instruction Stages
+            - Fetch
+            - Decode
+            - Execute
+            - Memory
+            - Write-back
+            - PC update
+        - Hardware Structure
