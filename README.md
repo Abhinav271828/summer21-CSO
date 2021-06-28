@@ -96,5 +96,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - PC update
         - Hardware Structure
 * Week 6
-    * Lecture 15 (28 June, Monday) – 
-        - 
+    * Lecture 15 (28 June, Monday) – SEQ Timing
+        - SEQ Timing
+        - SEQ Stage Implementations
+            - Fetch
+            - Decode and Write-Back
