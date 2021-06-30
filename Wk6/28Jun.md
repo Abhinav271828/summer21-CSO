@@ -56,7 +56,7 @@ The hardware unit 'Align' uses the value of 'need regids' to identify whether th
 ![Fetch Implementation](fetch.png)
 
 ### Decode and Write-Back
-These two stages are combined as they both access the register file. The icode. The register file allows up to two simultaneous reads (A and B) and two simultaneous writes (E and M), each of which has an address and a data connection.  
+These two stages are combined as they both access the register file. The register file allows up to two simultaneous reads (A and B) and two simultaneous writes (E and M), each of which has an address and a data connection.  
 The four blocks at the bottom generate the register IDs for the register file based the icode and the condition code Cnd.
 
 ![Decode and Write-Back Implementation](decodewriteback.png)
