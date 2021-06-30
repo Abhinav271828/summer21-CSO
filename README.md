@@ -101,3 +101,9 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - SEQ Stage Implementations
             - Fetch
             - Decode and Write-Back
+    * Lecture 16 (30 June, Wednesday)
+        - SEQ Stage Implementations (contd.)
+            - Execute
+            - Memory
+            - PC Update
+        - Pipelined Instruction Processing
