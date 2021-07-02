@@ -107,3 +107,12 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Memory
             - PC Update
         - Pipelined Instruction Processing
+    * Lecture 17 (02 July, Friday)
+        - Pipelined Y86: SEQ+
+        - Pipelined Y86: PIPE-
+            - Pipe Registers
+            - Naming Convention
+            - Select A
+            - Next PC Prediction
+            - Pipeline Hazards
+        - Pipelined Y86: PIPE
