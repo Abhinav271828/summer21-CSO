@@ -50,6 +50,7 @@ Data hazards are avoided by
 
 ![PIPE Hardware](pipe.png)
 
+### Forwarding
 PIPE- cannot make use of forwarding. Forwarding is implemented in the new PIPE hardware architecture.  
 
 The "Sel+Fwd A" block takes five inputs in order to handle data hazards with forwarding.
