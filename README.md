@@ -116,3 +116,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Next PC Prediction
             - Pipeline Hazards
         - Pipelined Y86: PIPE
+            - Forwarding
+    * Lecture 18 (03 July, Saturday)
+        - Pipelined Y86: PIPE (contd.)
+            - Exception Handling
+            - Stage Implementations
