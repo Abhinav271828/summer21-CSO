@@ -121,3 +121,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Pipelined Y86: PIPE (contd.)
             - Exception Handling
             - Stage Implementations
+* Week 7
+    * Lecture 19 (05 July, Monday)
+        - Pipelined Y86: PIPE (contd.)
+            - Pipeline Control Logic
+            - Stalling and Bubbles
