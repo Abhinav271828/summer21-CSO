@@ -36,7 +36,7 @@ All these three types can be handled by the simple and reliable strategy of carr
 ![Execute Stage](pipe4.png)
 
 3. Execute Stage: Here again, the values of the ALU's operands depend on the icode signal, `valA`, `valB` and `valC`.  
-    Note, however, that the exceptions go to `W_stat` and `m_stat` – indicating that in those stages, no updating of the state should occur after an exception has been raise in this stage (case 3 above).
+    Note, however, that "Set CC" block takes in `W_stat` and `m_stat` – indicating that in this stage, no updating of the state should occur after an exception has been raise in the memory stages of the previous two instructions (case 3 above).
 
 ![Memory Stage](pipe5.png)
 
