@@ -6,7 +6,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 ## Course Outline
 - [x] Computer Arithmetic
 - [x] Instruction Set Architecture
-- [ ] Processor Architecture and Design
+- [x] Processor Architecture and Design
 - [ ] Memory Hierarchies
 - [ ] Input/Output
 - [ ] Virtual Memory
@@ -126,3 +126,11 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - Pipelined Y86: PIPE (contd.)
             - Pipeline Control Logic
             - Stalling and Bubbles
+    * Lecture 20 (07 July, Wednesday)
+        - Memory Organisation
+            - Flat vs Hierarchical Memory
+            - The Memory Pyramid
+        - SRAM vs DRAM
+        - DRAM
+            - Structure
+            - Example
