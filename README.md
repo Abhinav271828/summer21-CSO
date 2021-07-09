@@ -134,3 +134,9 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
         - DRAM
             - Structure
             - Example
+    * Lecture 21 (09 July, Friday)
+        - DRAM (contd.)
+            - Main Memory
+        - Disk Storage
+            - Structure
+            - Disk Access
