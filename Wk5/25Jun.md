@@ -66,12 +66,16 @@ Note that in the case of conditional move, the `PC <- Cnd ? valC : valP` step is
 
 #### Fetch
 Using the PC register as an address, the bytes of an instruction are read from the instruction memory and increments `valP`.  
+
 #### Decode
 The register file has two read ports A and B, from which up to two values are read.  
+
 #### Execute
 The ALU executes the required operation – adding, computing an effective address or simply passing an input to an output. The CC bits are set.  
+
 #### Memory
 A word is read from or written to memory.  
+
 #### Write-back
 The register file has two write ports E and M, at which the register values can be updated.  
 
