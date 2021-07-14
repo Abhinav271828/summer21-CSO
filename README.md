@@ -142,6 +142,9 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Disk Access
 * Week 8
     * Lecture 22 (12 July, Monday)
-    - Memory Pyramid 2.0
-    - Caches
-        - Principle of Caching
+        - Memory Pyramid 2.0
+        - Caches
+            - Principle of Caching
+    * Lecture 23 (14 July, Wednesday)
+        - Caches (contd.)
+            - Structure of the Cache
