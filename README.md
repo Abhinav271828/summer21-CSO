@@ -148,3 +148,6 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     * Lecture 23 (14 July, Wednesday)
         - Caches (contd.)
             - Structure of the Cache
+    * Lecture 24 (16 July, Friday)
+        - Caches (contd.)
+            - Examples
