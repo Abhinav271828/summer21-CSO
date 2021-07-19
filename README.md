@@ -7,7 +7,8 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 - [x] Computer Arithmetic
 - [x] Instruction Set Architecture
 - [x] Processor Architecture and Design
-- [ ] Memory Hierarchies
+- [x] Memory Hierarchies
+- [ ] Exceptional Control Flow
 - [ ] Input/Output
 - [ ] Virtual Memory
 
@@ -151,3 +152,16 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
     * Lecture 24 (16 July, Friday)
         - Caches (contd.)
             - Examples
+* Week 9
+    * Lecture 25 (19 July, Monday)
+        - Control Flow
+            - Smooth and Jittery Transitions
+            - Exceptional Control Flow
+            - Why ECF
+        - Exceptions
+            - Handling Exceptions
+            - Classes of Exceptions
+                - Interrupts
+                - Traps and System Calls
+                - Faults
+                - Aborts
