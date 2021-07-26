@@ -8,7 +8,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 - [x] Instruction Set Architecture
 - [x] Processor Architecture and Design
 - [x] Memory Hierarchies
-- [ ] Exceptional Control Flow
+- [x] Exceptional Control Flow
 - [ ] Input/Output
 - [ ] Virtual Memory
 
@@ -171,3 +171,10 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - The Abstraction
             - System Call Error Handling
             - Process Control
+* Week 10
+    * Lecture 27 (26 July, Monday)
+        - Virtual Memory
+            - Introduction
+            - Physical and Virtual Addressing
+            - Pages and Paging
+            - Address Spaces
