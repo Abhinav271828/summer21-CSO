@@ -178,3 +178,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
             - Physical and Virtual Addressing
             - Pages and Paging
             - Address Spaces
+    * Lecture 28 (28 July, Wednesday)
+        - Virtual Memory (contd.)
+            - Advantages
+            - Address Translation
