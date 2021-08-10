@@ -1,0 +1,347 @@
+Overview
+• family of heterogeneous microprocessors for multimedia and compute-intensive ops
+• motivations
+    - outstanding perf on entmt, multimedia
+    - architecture applicable to many platforms
+    - RT response to user
+    - address memory latency, power, frequency
+• extends PowerPC 64b arch with loosely coupled & cooperative offload processors
+• 2 instr sets: PowerPC and SPU (synergistic processor unit)
+• to be CBEA, ≥ 1 PPE and ≥ 1 SPE, feature set
+
+• PPE compliant with IBM PowerPC arch
+• "control plane" processing
+
+• independent SPU for "data plane" processing
+• -> more application parallelism
+
+• two storage domans: MSD (system mem, MMIO), LSD (each SPU)
+• each LSD has an address range in MSD -> LSA
+• SPU can access only LSD; coupled with MFC to access MSD and sync
+• SPU + LSD + MFC -> SPE
+
+• also many features for RT apps
+
+PowerPC Processor Element
+• control plane functions (general-purpose computing)
+• based on v2.02 of PowerPC arch
+• 4 reasons:
+    - mature arch, applicable to many platforms
+    - multiple simult operating envs (logical partitioning)
+    - proven microarchs that meet freq, power challenges
+    - IBM investment
+
+• logical partitioning -> multiple concurrent operating envs is a key adv
+• critical to having RTOS for UI w/ nonRTOS for mgmt
+• for this and to optimise for media-rich apps, extensions: vector/SIMD multimedia, mediated external exception, multiple concurrent large-page support, sw mgmt of TLBs, cache replacement mgmt.
+
+    Mediated External Exception Extension
+    • key attr of RTOS: guaranteed interrupt latency
+    • by not allowing interrupts to be disabled for more than _ time
+    • but with multiple OSs, a diff partition can delay it
+
+    • overcome by allowing interrupt to be presented to hw even if disabled
+    • allows extr exc to invoke hypervisor-privileged handler, but OS still has control of the exception
+    • MEE ext enables handler to invoked as long as processor is not operating in hypervisor state/extr excps enabled
+    • prevents OS from delaying presentation of exc to processor, allows hy-pr handler to be invoked
+    • if for RTOS, hypervisor passes control to RTOS handler
+    • if extr excps disabled for partition that has to handle, hy-pr handler sets a MEE req bit in the logical partitioning control register and returns
+    • when enabled, handler is invoked and sets state to mimic exception
+
+    Vector/SIMD Multimedia Extension
+    • included to run sw developed for the v/SIMD multimedia ext
+               to make it easier to develop and port apps to SPE
+               to allow parallelisation across {P,S}PEs
+    • similar to PowerPC impl
+    • except supports rouding modes
+
+    Multiple Concurrent Large-Page Extension
+    • PowerPC supports 4K page + one large page (size impl-dep)
+    • in CBEA, many data structs in MSD: MMIO regs, LSAs, strm data, vid buffs
+    • 64K: translations less for MMIO regs, LSAs; more for str, vid buffs
+    • 1-16M: more, less
+    • CBEA provides support for multiple concurrent large-page sizes
+
+Synergistic Processor Element
+• cooperative offload processor for data plane functions
+• SPU, LSD, MFC
+
+• SPU is SIMD processor with ISA optimised for comp-int and media apps
+• only ops on data in LSD
+
+• SPU and LSD coupled to MSD by MFC
+• enables sw to move data between SDs and sync with other processors
+• data mvmt and sync initiated by MFC commands issued by SPU or PPE
+• DMA controller in MFC unit performs mvmt
+
+Synergistic Processor Unit
+• 128 128b SIMD regs: efficient instr scheduling, important opt techns (loop unrolling)
+• SIMD ops: 16x8b, 8x16b, 4x32b, 2x64b
+• SIMD regs are unified
+• data structs of the program should be defined around SIMD data flow
+• double buffering techns for overlapping computation w data mvmt
+• insulated SPU from latency of sys mem accesses
+
+Channel Interface
+• channel interface supplies communication path betn SPU and MFC
+• multiple channels for issuing MFC commands and accessing MFC facilities
+• channels accessed by using SPU channel instrs
+• SPU ISA defines channel as 4w wide, but CBEA uses only 1w
+• each channel has direction, capacity, blockingness
+
+• direction: defined by CBEA
+• rdch for retrieval channels, wrch for transfer channels
+
+• capacity/depth is defined for some, not all
+• rdchcnt counts no. of valid words in channel & available free space
+
+• nonblocking channel has inf depth and rdchcnt = 1
+• blocking channels have depth ≥ 1 w/ active chcnt
+• accessing count=0 wala channel stalls processing until chcnt becomes nonzero
+• relieves programmer from checking channel capacity
+• program enters low-power state while waiting
+
+• SPU interrupt offers alternative to polling rdhcnt
+• if interrupts disabled, SPU branch instr (bisled) branches to tgt address
+• if enabled, SPU executes instr at 0x0 and saves next instr addr in SRR0 (read by iret)
+
+• SPU event facility can be programmed to detect key SPE conds, sys events
+• event facility accessed using channel instrs to determine event status
+• sw can use it to stall SPU
+
+Memory Flow Controller
+• comm path from SPU and LSD to MSD, other processors
+• can insulate SPU from sys mem latency
+
+• BIU is interface to EIB
+
+• SL1 is for MFC accesses to MSD, small/illa
+
+• MFC SPU cmd queue is for MFC commands issues by SPU using channels
+• MFC proxy cmd queue for other processes to transfer data betn LSDs
+• MFC proxy cmds issued by MFC MMIO regs (usually to initialise LSDs)
+
+• DMA controller transfers instrs, data between LSD and MSD
+• programs on SPU, PPE, other device can issue cmds
+• single command can transfer ≤ 16K betn domains
+• series of smaller transfers, ≤ cache line
+• parameters: CL, TG, TS, LSZ, LSA, EAH, EAL, LA, LTS, LEAL
+
+• classID param contains replacement mgmt class id (RclassID) that controls cache replacement mgmt facility
+• TclassID to classify type of storage being accessed
+• can be used by BIU to prevent slow access from blocking fast access
+• EIB transfr req queue is segmented accc. to accessed storage
+• sw can prevent it from filling with transfer reqs to slower devices
+    
+    List Commands
+    • commands with list modifier
+    • converted to series of commands
+    • each one has own EAL, TS
+    • ≤ 2048 elements, each ≤ 16K data
+    • only SPU can issue, but not to MFC proxy cmd queue
+    • stall-and-notify flag; causes MFC to stop in the middle
+    • allows programmer to specify data transfer larger than available buffer space
+    • one rdch for list of stalled commands, one wrch to acknowledge stall
+
+Memory Management Unit
+• allows SPU to use same effective addr as PPE apps for MSD
+• two parts: EAH (ms 32), EAL (ls 32)
+• translates effective addr to real addr (compatible with virtual addr translation defined by PowerPC arch)
+• PPE handles all MFC transl faults
+• page table can be same or diff as PPE's; supports multiple concurrent large-page, sw mgmt of TLBs
+
+    Command Ordering
+    • as MFC cmds issued, placed in queue
+    • can be executed in any order; allows MFC to reorder nicely
+    • if needed, can be ordered w command modifiers f and b; or barrier cmd
+    • cmd modifs order cmds with same tag (tag-specific)
+    • f -> performed after all prev cmds
+    • b -> performed before(?) all prev cmds    
+    • if indept of tag group, barrier command orders all prev cmds wrt all subseq cmds in same queue
+
+    Storage Access Ordering
+    • above not for all processors together
+    • for ordering of bus transfers wrt other processors/devices, mfceieio and mfcsync are used
+    • ordering performed by ≥ 2 processors wrt another one is cumulative ordering; CBEA follows PowerPC rules when all accesses within MSD and proper sync is done
+    • in other cases, multisource sync facility
+
+Memory-Mapped I/O Space and Channels
+    • facility is a set of MMIO regs/channels that provides a specialised function
+    • facilities accessed from MSD using MMIO regs or using channels
+
+    Local Storage Alias Facility
+    • within MMIO space of SPE there is LSA
+    • direct access to LSD of the SPE from MSD
+    • used for direct transfer of data from one LS to another
+
+    Command Issue Facility
+    • cmds issued using MMIO regs are MFC proxy cmds
+    • cmds issued by SPU code are MFC SPU cmds
+    • proxy cmds usually issued by PPE to initialise local storage efficiently
+
+    • sw writes each parameter to corresp MMIO reg, last one MFC cmd opcode
+    • then sw reads from MFC cmd status reg to see if it was placed in the queue (can fail because of cmd seq err or insuff room in MFC proxy queue)
+
+    • cmd seq err is when cmd issue seq is interrupted and next process or handler issues a proxy command
+    • response eliminates need for locking the queue
+
+    • sw can avoid insuff room error by reading MFC cmd queue status reg before issuing
+
+    • MFC SPU cmd sequence is a series of channel writes
+    • last channel is MFC cmd opcode channel (blocking, depth = size of cmd queue)
+    • if full, stall
+
+    Tag-Group Completion Facility
+    • data mvmt is async with execution of SPU prog
+    • tag-group completion facility to determine when specific cmd completes
+    • indept facilities for both cmd queues
+
+    • each DMA cmd has a tagID; all instrs with same tag ID are in a taggrp
+    • to determine when complete, a mask is written to the taggrp mask channel/register; status is reported in a status reg
+
+    • for MFC SPU cmd q, a query type is written to the MFC write taggrp status update req channel
+    • then reading from blocking taggrp status channel causes stall until grp complete
+    • for the MFC proxy cmd queue, a query type is there to determine when interrupt is generated
+    • interrupt routed to PPE
+
+    Multisource Synchronisation Facility
+    • SPUs don't have access to MSD -> four MFC commands to allow SPU to participate in atomic update of sys mem
+    • can be issued by SPU to MFC SPU cmd q
+    • "transfer full reservation granule" = cache line
+
+    • get lock line and reserve (getllar) is like lwarx, ldarx
+    • put lock line conditional (putllc)          stwcx, stdxx
+    • not queued; executed immediately but still need a queue slot
+    • no tag param; only one can be outstanding
+    • blocking atomic command status channel for determining completion, results
+
+    • put lock line unconditional (putlluc),
+    • put queues lock line unconditional (putqlluc) similar to cacheable PowerPC store instr
+    • unconditionally release lock
+    • putlluc is executed immediately; putqlluc has an implied fence, placed in queue so has tag param
+    • common sync method is for sw to wait for value of lock in sys mem to change
+    • an SPU event is generated when a reservation is lost; eliminates need for constant polling
+    • additional options: mailbox, signal notification facilities
+
+    Mailbox Facility
+    • assist in process2process communication and synchronisation
+    • simple, unidir comm mechanism used by PPE to send short cmds to SPE and receive status in return
+
+    • inbound, outbound, outbound interrupt mailbox (wrt SPU)
+    • each has depth ≥ 1 entries
+    • SPU accesses mailboxes w channel instructions; blocking
+
+    • for PPE et al, MMIO regs provide access to mailboxes and statuses
+    • output interrupt mailbox generates interrupt when written by SPU
+    • routed to PPE for processing as external exception
+
+    Signal Notification Facility
+    • similar to mailbox; two signal notification regs
+    • accessed by channels from SPU, mapped to MMIO space for other processors
+    • inbound only; 1 deep channels; blocking
+    • each reg has 2 modes: overwrite & OR
+        - overwrite: contents replaced even if unread
+        - OR: new value OR old value
+    • set to 0 after reading
+    • MFC "send signal" command, allowing impl to use a more eff mechanism
+    • alternative sync mechanism betn SPUs and other devices
+
+    SPU Event Facility and Decrementer Facility
+    • provides sw with a mech to wait for a set of conditions
+    • can interrupt SPU
+    • SPU read event status channel, channel for reading SPU write event mask channel, channel for writing SPU WEMC, SPU write event acknowledgement channel
+
+    • sw writes SPU WEMC to select conds
+    • read SPU read event status channel, stall until one cond happens (stall can be avoided by rdchcnt of SPU write event status channel or enabling interrupt)
+    • once event occurs, SPU prog writes 1 to SPU write event acknowledgement channel
+    • enables SPU to receive subseq events
+
+    • SPU read event mask channel is provided for context save and restore ops
+    • sw can also use it to eliminate shadow copy of selected events(?)
+
+    • events: MFC taggrp status update, MFC DMA list command stall-and-notify, MFC SPU cmdq available, SPU inbound mailbox, SPU outbound mailbox, SPU outbound interrupt mailbox, ...
+
+    • privileged attention event allows another processor/device to get attention of SPU program; setting pr-at bit in pr-contr register causes event facility to be set
+
+    • SPU decrementer event is set when msb of SPU decrementer 0->1
+
+    Software Management of TLBs Facility
+    • PowerPC uses hw page table in sys memory for VM
+    • cache of translations in on-chip array (TLB)
+    • in PowerPC, TLB is hw-managed
+
+    • caches introduce uncertainty into system
+    • startup penalty because of cold cache: unacceptable
+    • CBEA adds sw TLB mgmt facility for both {P,S}PE
+    • used in conjuncn w/ hw mgmt, OS can preload/restore an app's translations
+
+    • also issue: fixed size, struct of hw page table
+    • also all processors in the same OS partition share same physical table
+    • with sw, OS can choose to manage TLB in sw for any of SPE/PPEs
+    • OS can have specialised page table structure
+
+Cache Replacement Management Facility
+• cache uncertainty also due to chacteristic of app
+• streaming very bad
+• provides two key methods: prevent streaming data from flushing cache, and allow OS to lock data/translations in cache
+• second one can reduce uncertainty of processing interrupt
+• achieved by ensuring only one RMT entry allows given cache set to be replaced
+
+• RTOS can warm cache by pre-touching handler by using cache mhmt instrs
+• when used with MEE ext, this facility eliminates uncertainty in interrupt handler
+
+Internal Interrupt Controller
+• all exceptions generated by SPEs are handled by PPEs
+• define an IIC with a method to present SPE-generated interrupt to PPE asap
+• excs: internal SPU errors, MFC cmd exec errors, addr transl faults, addr compare matches, mailbox interrupts, SPU stop-and-signal instr interrupts, taggrp completion
+• SPU excs -> PPE extr interrupt
+• routing regs (to route interrupt to PPE), interrupt mask regs (enable interrupt conds, record cause) and interrupt status regs defined
+• IIC allows sw to prioritise SPE excs with other extr interrupts
+• also provides efficient mech for interprocessor interrupts
+
+Resource Allocation Management
+• cache replacement mgmt, sw mgmt of TLBs are fine for 1 processor
+• in a multiprocessor sys, resources like memory can be consumed by few devices, causing latency/bandwidth issues -> RAM facility
+• each requester is assigned to a resource allocn group (RAG), to which a portion of each critical resource is allocated
+• in Cell/B.E. arch,
+    - resources: sys mem, IO interface
+    - token-based control mech allocates percentage to each RAG
+    - for access, token to be req from central token manager
+    - hypervisor initialises tok mgr to generate tokens according to percentage
+    - requesters compete for tokens given to their RAG using round robin
+    - unused tokens can be given to another RAG
+    - any RAG can use unallocated percentage (disableable)
+    - to avoid overutilisation, automatically suspend allocation when congested (backpressure)
+    - memory access pattern should be evenly distributed
+    - small accesses are an issue; Cell/B.E. handles this by defining tok as transfer of full cache line and requiring two toks if TS needs a read/mod/write of sys mem to update ecc
+
+    - effective sys mem bandwidth is a fn of access pattern & size
+    - RAM guarantees access to resource, but bandwidth is still dependent
+
+Power Management
+• blocking channels allow SPU to enter low-power state
+• power mgmt states: active, slow(n), pause(n), state retained & isolated (SRI), state lost & isolated (SLI)
+    - active: full performance, no power mgmt
+    - slow(n): high n = more aggressive power savings, degraded perf
+    - pause(n): like slow but forward progress is not guaranteed
+    - SRI: no interaction with other elmts, little context is lost
+    - SLI: most aggressive, all context lost
+
+Isolated Execution Environment
+• secure execution env within SPE
+• to enter SPI IEE, pointer to code to execute is loaded into SPU signal notif regs, SPU is started using Load req
+• receives Load req, sets up IEE by removing access to portion of LSD
+• all accesses to LSA and MFC DMA cmds forced into open area
+• after IEE is initialised, SPE loads app into isolated area; authenticated and decrypted
+• if success, exec; once in IEE, only way out is stop & restart w Exit req
+• if fail, remain halted in transition state; leave by restarting w Exit or Load
+
+• also provides rand() and persistent storage (maintains state betn isolation sessions and can be accessed only by app executing in IEE)
+
+Software Development Toolkit
+
+Software Standards for CBEA
+
+Conclusions: The Power of the Cell/B.E. Processor
+• optimisation made possible by heterogeneous design & mem mvmt (DMA) for hiding mem latency
+• many applications

@@ -1,0 +1,69 @@
+Introduction
+• trend is to increase architecture complexity
+• design time, design errors increase; inconsistent implementations
+• this is CISC
+
+• major limitations: delay-power penalty of data transfer across chip boundaries, less hw on one chip
+• :. look for alternatives to architectural complexity
+• hypothesis – reduce ISA; then VLSI can use scarce resources more effectively and reduce design time & errors and execution time of indiv instrs
+• constraints:
+        - one instr per cycle (almost); no microcode
+        - all instrs same size (simplify implementation)
+        - only load and store access memory
+        - support HLLs
+• 32b addrs, 8/16/32b data, 32b regs
+
+Support for HLLs
+• hide lower levels from programmer; else hw, sw, does nt matter
+• mostly in sw because of chip limitation
+• stats: freq of integer constants (local) ~ arrays (global)
+         freq of HLL stmts
+         time taken by stmts
+
+Basic Architecture of RISC I
+• 4 types: ALU, mem acc, branch, misc
+• reg 0 always contains 0
+• load and store take 2 cycles
+• only index+displ addr mode
+• call, ret, jXX, jmp
+
+    - Register Windows
+      • call is most time-consuming in HLLs
+      • RISC may be worse
+      • mainly two ops: saving/restoring regs, passing and returning params/results
+      • RISC uses similar to Baskett and Sites: register banks, but also global regs
+      • diff. routines' banks are overlapped for passing
+      • when no free banks, reg overflow stack in memory and a pointer to it
+      • what about pointers? give regs addrs
+
+    - Delayed Jump
+      • pipelining is implemented
+      • jumps don't happen until the next instr
+      • machine code rearranged
+      • usually NOP, otherwise shifting can happen
+
+Evaluation
+    - Register Windows
+      • effective
+
+    - Delayed Jump
+      • did well on unconds, not so much on conds
+
+    - Overall Performance
+      • 0.67 more instrs than VAX
+      • 0.4 more than PDP-11
+      • reduced number of data accesses
+      • could be faster
+
+Memory Interface
+• main bottleneck
+• on-chip cache would be nice but big
+• instr fetches, so instr cache (no need to write so simple controller)
+
+Summary
+• RISC is promising
+• complicated addressing schemes venda
+• register window scheme good
+• taken out complexity, not much more code density, improved performance
+• functionality same
+• single-chip fast design
