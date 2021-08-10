@@ -9,8 +9,7 @@ A collection of notes and resources for the Computer Systems Organisation (CSO) 
 - [x] Processor Architecture and Design
 - [x] Memory Hierarchies
 - [x] Exceptional Control Flow
-- [ ] Input/Output
-- [ ] Virtual Memory
+- [x] Virtual Memory
 
 ## Lecture Contents
 * Week 1
